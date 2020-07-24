@@ -1,0 +1,24 @@
+{
+  "name": "meal2ical",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ygoe/msgpack": "https://github.com/ygoe/msgpack.js",
+    "ics": "^2.22.1",
+    "koa": "^2.13.0",
+    "school-kr": "^3.1.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/koa": "^2.11.3"
+  }
+}
