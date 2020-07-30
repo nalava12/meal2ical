@@ -7,6 +7,10 @@ t[day].b -> time[day].breakfast
 t[day].l -> time[day].lunch
 t[day].d -> time[day].dinner
 t.iA -> includeAllergy
+t.iT -> includeTypes
+i.iT.b -> breakfast
+i.iT.l -> lunch
+i.iT.d -> breakfast
 */
 
 export function optionParse(encodedStr: string) {
@@ -48,7 +52,12 @@ export function optionParse(encodedStr: string) {
         dinner: [17, 30, 18, 30]
       }
     },
-    includeAllergy: true
+    includeAllergy: true,
+    includeTypes: {
+      breakfast: true,
+      lunch: true,
+      dinner: true
+    }
   };
   try {
     encodedStr = encodedStr.replace(/-/g, '+');
@@ -74,6 +83,21 @@ export function optionParse(encodedStr: string) {
     }
     if (data.iA) {
       option.includeAllergy = data.iA;
+    }
+    if (data.iT) {
+      for (let type in data.iT) {
+        switch (type) {
+          case 'b':
+            option.includeTypes.breakfast = data.iT.b;
+            break;
+          case 'l':
+            option.includeTypes.lunch = data.iT.l;
+            break;
+          case 'd':
+            option.includeTypes.dinner = data.iT.d;
+            break;
+        }
+      }
     }
   } finally {
     return option;

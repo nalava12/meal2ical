@@ -23,6 +23,11 @@ export interface Option {
     6: DayTimeOption;
   };
   includeAllergy: boolean;
+  includeTypes: {
+    breakfast: boolean;
+    lunch: boolean;
+    dinner: boolean;
+  };
 }
 
 const mealCache: Map<string, (string | undefined)[]> = new Map(); // Map<yearmonth, meals>
@@ -77,7 +82,7 @@ app.use(async ctx => {
       let curDate = new Date(today.getFullYear(), today.getMonth() + month, ind);
       let time = options.time[curDate.getDay() as keyof typeof options.time];
 
-      if ((breakfast ?? '').length !== 0) {
+      if ((breakfast ?? '').length !== 0 && options.includeTypes.breakfast) {
         let start: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.breakfast[0], time.breakfast[1]];
         let end: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.breakfast[2], time.breakfast[3]];
         events.push({
@@ -87,7 +92,7 @@ app.use(async ctx => {
           description: breakfast
         })
       }
-      if ((lunch ?? '').length !== 0) {
+      if ((lunch ?? '').length !== 0 && options.includeTypes.lunch) {
         let start: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.lunch[0], time.lunch[1]];
         let end: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.lunch[2], time.lunch[3]];
         events.push({
@@ -97,7 +102,7 @@ app.use(async ctx => {
           description: lunch
         })
       }
-      if ((dinner ?? '').length !== 0) {
+      if ((dinner ?? '').length !== 0 && options.includeTypes.dinner) {
         let start: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.dinner[0], time.dinner[1]];
         let end: ics.DateArray = [today.getFullYear(), today.getMonth() + month + 1, ind, time.dinner[2], time.dinner[3]];
         events.push({
