@@ -52,7 +52,7 @@ export function optionParse(encodedStr: string) {
         dinner: [17, 30, 18, 30]
       }
     },
-    includeAllergy: true,
+    includeAllergy: false,
     includeTypes: {
       breakfast: true,
       lunch: true,
