@@ -2,6 +2,7 @@ import School from 'school-kr';
 import Koa from 'koa';
 import * as ics from 'ics';
 import { optionParse } from './helper';
+import serve from 'koa-static';
 
 let school = new School();
 school.init(School.Type.HIGH, School.Region.GYEONGNAM, 'S100000693');
@@ -33,6 +34,15 @@ export interface Option {
 const mealCache: Map<string, (string | undefined)[]> = new Map(); // Map<yearmonth, meals>
 
 const app = new Koa();
+
+app.use(async (ctx, next) => {
+  await next();
+  let now = new Date();
+  console.log(`[${now.toISOString()}] ${ctx.method} ${ctx.url}`);
+});
+
+app.use(serve('frontend/dist/'));
+
 app.use(async ctx => {
   let today = new Date();
   let currMeals: (string | undefined)[] = [];
@@ -118,4 +128,5 @@ app.use(async ctx => {
   ctx.res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
 });
 
+console.log(`[${new Date().toISOString()}] Server is listening at port 3000`);
 app.listen(3000);

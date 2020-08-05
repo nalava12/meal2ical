@@ -4,22 +4,28 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && yarn workspace meal2ical_frontend build"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "author": "",
   "license": "MIT",
+  "priavte": true,
   "dependencies": {
     "@ygoe/msgpack": "https://github.com/ygoe/msgpack.js",
     "ics": "^2.22.1",
     "koa": "^2.13.0",
+    "koa-static": "^5.0.0",
     "school-kr": "^3.1.1"
   },
   "private": true,
   "devDependencies": {
     "@types/koa": "^2.11.3",
+    "@types/koa-static": "^4.0.1",
     "typescript": "^3.9.7"
-  }
+  },
+  "workspaces": [
+    "frontend"
+  ]
 }
